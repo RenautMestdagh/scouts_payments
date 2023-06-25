@@ -1,0 +1,20 @@
+{
+  "name": "scouts_payments",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ../bin/www"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "pug": "^3.0.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "debug": "4.3.4"
+  }
+}
