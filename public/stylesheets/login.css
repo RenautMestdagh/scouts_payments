@@ -7,10 +7,10 @@
 }
 .loginchild {
     position: absolute;
-    top: 45%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20%;
+    width: 80%;
 }
 input::-ms-reveal, input::-ms-clear {
     display: none;
@@ -21,33 +21,33 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     margin: 0;
 }
 p {
-    font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 30px "Lucida Grande", Helvetica, Arial, sans-serif;
     color: #3f3f3f;
     line-height: 150%;
 }
 .passNCorrect {
     color: red;
-    font-size: small;
+    font-size: xx-large;
     display: none;
 }
 .login {
-    margin-top: 20px;
+    margin-top: 55px;
     width: 100%;
 }
 input[type=text], input[type=password], input[type=email], input[type=tel], select, textarea {
     width: 100%;
-    padding: 0 12px;
-    line-height: 46px;
+    padding: 0 35px;
+    line-height: 120px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 20px;
     resize: vertical;
 }
 input[type=submit], button, #teamDisplay input[type=button] {
     background-color: #940000;
     color: white;
-    padding: 12px 20px;
+    padding: 20px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
     float: right;
     -moz-appearance: none;
@@ -62,10 +62,10 @@ input[type=submit]:hover, button:hover, #teamDisplay input[type=button]:hover {
     text-decoration: none;
     float: right;
     margin-left: -25px;
-    margin-top: -35px;
+    margin-top: -85px;
     font-size: 50px;
     color: rgba(0, 0, 0, 0.5);
-    margin-right: 20px;
+    margin-right: 35px;
     padding: 3px;
     position: relative;
     z-index: 2;
@@ -74,9 +74,10 @@ input[type=submit]:hover, button:hover, #teamDisplay input[type=button]:hover {
     color: rgba(0, 0, 0, 0.7);
 }
 #eye {
-    font-size: 17px;
+    font-size: xxx-large;
 }
 * {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    font-size: xxx-large;
 }

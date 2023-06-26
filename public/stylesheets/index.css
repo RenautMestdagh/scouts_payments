@@ -1,0 +1,35 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#normal,#custom{
+   display: block;
+   width: 700px;
+   height: 500px;
+   margin-bottom: 200px;
+   border-radius: 50px;
+   background-color: #810000;
+   color: white;
+   font-size: 70px;
+   text-align: center;
+   line-height: 70px;
+   text-decoration: none;
+}
+body {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 90vh;
+  background-color: #c5c5c5;
+ }
+
+ .button-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+ }
