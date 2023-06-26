@@ -1,14 +1,11 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
 const session = require('cookie-session');
 require('dotenv').config();
 
-var app = express();
-
-const server = require('http').createServer(app);
-
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,4 +50,4 @@ app.use(function(err, req, res) {
   res.render('error');
 });
 
-module.exports = {app: app, server: server};
+module.exports = app;

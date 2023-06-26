@@ -3,9 +3,10 @@
 /**
  * Module dependencies.
  */
-const app = require('../app').app;
+const app = require('../app');
 //var debug = require('debug')('scouts_payments:server');
-const server= require('../app').server;
+const http = require("http"); // <== Add this line
+const socketapi = require("../utils/socketapi");
 
 /**
  * Get port from environment and store in Express.
@@ -17,7 +18,16 @@ app.set('port', port);
  * Listen on provided port, on all network interfaces.
  */
 
+const server= http.createServer(app);
 server.listen(port);
+socketapi.io.attach(server, {
+  cors: {
+    methods: ["GET", "POST"],
+    transports: ['websocket', 'polling'],
+    credentials: true
+  },
+  allowEIO3: true
+}); // <== Also add this line
 server.on('error', onError);
 //server.on('listening', onListening);
 

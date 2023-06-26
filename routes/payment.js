@@ -4,27 +4,8 @@ const axios = require("axios");
 const jwksClient = require('jwks-ec');
 const jwt = require('jsonwebtoken');
 const toScan = new Set();
-let app
-let io
-
-function initiateSocketIo() {
-  app = require("../app");
-
-  io = require('socket.io')(app.server, {
-    cors: {
-      methods: ["GET", "POST"],
-      transports: ['websocket', 'polling'],
-      credentials: true
-    },
-    allowEIO3: true
-  });
-  app.app.use(function(req, res, next){
-    res.io = io;
-    next();
-  });
-}
-
-setTimeout(initiateSocketIo, 5000)
+let socketapi = require("../utils/socketapi");
+const jose = require('jose')
 
 const client = jwksClient({
   cache: true, // Default Value
@@ -57,24 +38,51 @@ router.get('/', async function(req, res) {
 });
 
 router.get('/callback', async function(req, res) {
-  const JWT = "eyJ0eXAiOiJKT1NFK0pTT04iLCJraWQiOiJlcy5zaWduYXR1cmUucGF5Y29uaXEuY29tLjIwMjMiLCJhbGciOiJFUzI1NiIsImh0dHBzOi8vcGF5Y29uaXEuY29tL2lhdCI6IjIwMjMtMDYtMjZUMDA6NDk6MDYuODgzNTM1WiIsImh0dHBzOi8vcGF5Y29uaXEuY29tL2p0aSI6IjE2NWRiZTYyZTJiZDdlMyIsImh0dHBzOi8vcGF5Y29uaXEuY29tL3BhdGgiOiJodHRwczovL21pbml2b2V0YmFsLnNjb3V0c3dhcmVnZW0uYmUvY2FsbGJhY2siLCJodHRwczovL3BheWNvbmlxLmNvbS9pc3MiOiJQYXljb25pcSIsImh0dHBzOi8vcGF5Y29uaXEuY29tL3N1YiI6IjYzOTg0NGYxOGVmZDFhMjM4ODlkOGEzMCIsImNyaXQiOlsiaHR0cHM6Ly9wYXljb25pcS5jb20vaWF0IiwiaHR0cHM6Ly9wYXljb25pcS5jb20vanRpIiwiaHR0cHM6Ly9wYXljb25pcS5jb20vcGF0aCIsImh0dHBzOi8vcGF5Y29uaXEuY29tL2lzcyIsImh0dHBzOi8vcGF5Y29uaXEuY29tL3N1YiJdfQ..ksPejngyQKQ7G063_zgDsiTpDlsyF6LEOUntElM8Zr0TG_cHmPRefxWFDhqxziO3AaWTSdJC5P20B35zmULikQ"
-  //const JWT = req.headers['signature']
-  const signature = JWT.split('.')
-  let buff = new Buffer(signature[0], 'base64');
-  const JOSE_header = JSON.parse(buff.toString('ascii'));
+  const jwt = "eyJ0eXAiOiJKT1NFK0pTT04iLCJraWQiOiJlcy5zaWduYXR1cmUucGF5Y29uaXEuY29tLjIwMjMiLCJhbGciOiJFUzI1NiIsImh0dHBzOi8vcGF5Y29uaXEuY29tL2lhdCI6IjIwMjMtMDYtMjZUMDI6NDk6NTEuNDU5MTc5WiIsImh0dHBzOi8vcGF5Y29uaXEuY29tL2p0aSI6IjgxZjJlNGQ3OTFiYWYwODYiLCJodHRwczovL3BheWNvbmlxLmNvbS9wYXRoIjoiaHR0cHM6Ly9taW5pdm9ldGJhbC5zY291dHN3YXJlZ2VtLmJlL2NhbGxiYWNrIiwiaHR0cHM6Ly9wYXljb25pcS5jb20vaXNzIjoiUGF5Y29uaXEiLCJodHRwczovL3BheWNvbmlxLmNvbS9zdWIiOiI2Mzk4NDRmMThlZmQxYTIzODg5ZDhhMzAiLCJjcml0IjpbImh0dHBzOi8vcGF5Y29uaXEuY29tL2lhdCIsImh0dHBzOi8vcGF5Y29uaXEuY29tL2p0aSIsImh0dHBzOi8vcGF5Y29uaXEuY29tL3BhdGgiLCJodHRwczovL3BheWNvbmlxLmNvbS9pc3MiLCJodHRwczovL3BheWNvbmlxLmNvbS9zdWIiXX0..ezk94vlx13_w2wCO9tvmlLIS9o48-gqkQftOylSKYdXmAgEluFy3rOUkr81HaVzMrFqDd02_qHv_jNhjRrBtYw"
+  // //const JWT = req.headers['signature']
+  // const signature = JWT.split('.')
+  // let buff = new Buffer(signature[0], 'base64');
+  // const JOSE_header = JSON.parse(buff.toString('ascii'));
+  //
+  // let token = buff.toString('ascii')
+  // buff = new Buffer(signature[2], 'base64');
+  // const JWS_signature = buff.toString('ascii');
+  //
+  // let signingKey = await getSigningKey(JOSE_header.kid);
+  // signingKey = "-----BEGIN PUBLIC KEY-----\n" +
+  //     "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEvIjXgNAOS1XwZGFDqUTw0QyZ/Ttu\n" +
+  //     "RW4yxwvu+KxadL+6W6W6n3Huwxc7dzRUuBtX8x0qePVs9uPrsf2IPWsb9g==\n" +
+  //     "-----END PUBLIC KEY-----\n"
+  //
+  // jwt.verify(JWS_signature, signingKey, function(err, decoded) {
+  //   console.log(decoded)
+  // });
 
-  let token = buff.toString('ascii')
-  buff = new Buffer(signature[2], 'base64');
-  const JWS_signature = buff.toString('ascii');
-
-  let signingKey = await getSigningKey(JOSE_header.kid);
-  signingKey = "-----BEGIN PUBLIC KEY-----\n" +
-      "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEvIjXgNAOS1XwZGFDqUTw0QyZ/Ttu\n" +
-      "RW4yxwvu+KxadL+6W6W6n3Huwxc7dzRUuBtX8x0qePVs9uPrsf2IPWsb9g==\n" +
-      "-----END PUBLIC KEY-----\n"
-  jwt.verify(JWT, signingKey, function(err, decoded) {
-    console.log(decoded)
-  });
+  const options = {
+    crit: {"https://payconiq.com/sub":true, "https://payconiq.com/iss":true, "https://payconiq.com/iat":true, "https://payconiq.com/jti":true, "https://payconiq.com/path":true}
+  }
+  const JWKS =jose.createRemoteJWKSet(new URL('https://payconiq.com/certificates'))
+  const { payload, protectedHeader } = await jose
+      .jwtVerify(jwt, JWKS, options)
+      .catch(async (error) => {
+        console.log("heeeh")
+        if (error?.code === 'ERR_JWKS_MULTIPLE_MATCHING_KEYS') {
+          for await (const publicKey of error) {
+            try {
+              return await jose.jwtVerify(jwt, publicKey, options)
+            } catch (innerError) {
+              if (innerError?.code === 'ERR_JWS_SIGNATURE_VERIFICATION_FAILED') {
+                continue
+              }
+              throw innerError
+            }
+          }
+          throw new jose.errors.JWSSignatureVerificationFailed()
+        }
+        throw error
+      })
+  console.log(protectedHeader)
+  console.log(payload)
 
   // client.getSigningKey(JOSE_header.kid, (err, key) => {
   //   const signingKey = key.publicKey || key.privateKey;
@@ -131,7 +139,7 @@ async function pollScanned() {
       const paymentStatus = response.data.status;
 
       if (paymentStatus !== 'PENDING') {
-        io.emit('scanned', paymentId);
+        socketapi.io.emit('scanned', paymentId);
         paymentIdsToRemove.push(paymentId);
       }
     } catch (error) {
