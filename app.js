@@ -27,7 +27,7 @@ app.use(
 )
 
 const redirectLogin = (req, res, next) => {
-  if (!req.session.userId)
+  if (!( req.session.userId || req.headers['user-agent']==="Payconiq Payments/v3"))
     return res.redirect('/login')
   next()
 }

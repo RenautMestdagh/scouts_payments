@@ -17,7 +17,7 @@ router.get('/', async function(req, res) {
     "amount": 1,//req.query.amount * 100,
     "currency": "EUR",
     "description": "Drankkaart",
-    "callbackUrl": "http://http://152.70.57.40/payment/callback"//https://"+req.headers.host+"/payment/callback",
+    "callbackUrl": "http://152.70.57.40/payment/callback"//https://"+req.headers.host+"/payment/callback",
   }
 
   const payment = await axios.post('https://api.payconiq.com/v3/payments', paymentInfo, { headers })
@@ -26,9 +26,11 @@ router.get('/', async function(req, res) {
   res.render('payment', { title: 'Payment', paymentId: payment.data.paymentId, qrCode: payment.data._links.qrcode.href.concat("&f=SVG") });
 });
 
-router.get('/callback', async function(req, res) {
+router.post('/callback', async function(req, res) {
+  res.sendStatus(200);
   const signature = req.headers['signature'].split('.')
-  const jwt = signature[0]+btoa(JSON.stringify(req.body))+signature[2];
+  signature[1] = btoa(JSON.stringify(req.body))
+  const jwt = signature.join(".")
 
   const options = {
     crit: {"https://payconiq.com/sub":true, "https://payconiq.com/iss":true, "https://payconiq.com/iat":true, "https://payconiq.com/jti":true, "https://payconiq.com/path":true}
@@ -44,16 +46,16 @@ router.get('/callback', async function(req, res) {
             } catch (innerError) {}
           }
         }
-        return res.io.emit('verificationFailed', req.body.paymentId)
+        return socketapi.io.emit('verificationFailed', req.body.paymentId)
       })
 
   if (payload && protectedHeader) {
     if(req.body.status==="SUCCEEDED"){
-      return res.io.emit('betaald', req.body.paymentId);
+      return socketapi.io.emit('betaald', req.body.paymentId);
     } else if (req.body.status==="CANCELLED"){
-      return res.io.emit('failed', req.body.paymentId);
+      return socketapi.io.emit('failed', req.body.paymentId);
     } else
-      return res.io.emit('heh', req.body.paymentId);
+      return socketapi.io.emit('heh', req.body.paymentId);
   }
 })
 
