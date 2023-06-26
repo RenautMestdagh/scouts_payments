@@ -1,0 +1,13 @@
+extends layout
+
+block content
+
+    .container
+        .loginchild
+            form.login-form(id='login' action='/login' method='post')
+                input#password(type='password' name='password' placeholder='Wachtwoord..' required='' maxlength="60" autofocus)
+                .toggle-password.fa.fa-fw.fa-eye.field-icon(id="eye" type='button')
+                p.passNCorrect#passNCorrect Wachtwoord is incorrect.
+                input.submit.login(id= 'submit' type='submit' value='Log in')
+
+    script(type="text/javascript" src="/javascripts/login.js")

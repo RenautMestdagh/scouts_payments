@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  button#normal(type="button") 1 drankkaart (€20)
+  button#custom(type="button") Ander bedrag
+
+  script(type="text/javascript" src="/javascripts/onclicklistener.js")
