@@ -8,13 +8,19 @@ socket.on(('scanned'), function (data) {
 });
 socket.on(('betaald'), function (data) {
     if (data !== paymentId) return;
-
+    console.log("betaald")
     // show confirmation and redirect to /
 });
 
 socket.on(('failed'), function (data) {
     if (data !== paymentId) return;
+    console.log("failed")
+    // show fail and redirect to /
+});
 
+socket.on(('verificationFailed'), function (data) {
+    if (data !== paymentId) return;
+    alert('Gebrield me verificatie? (zeg aan Renaut dat ik het kan bekijken ☺)')
     // show fail and redirect to /
 });
 
