@@ -17,7 +17,7 @@ router.get('/', async function(req, res) {
     "amount": 1,//req.query.amount * 100,
     "currency": "EUR",
     "description": "Drankkaart",
-    "callbackUrl": "https://minivoetbal.scoutswaregem.be/callback"//https://"+req.headers.host+"/payment/callback",
+    "callbackUrl": "http://http://152.70.57.40/payment/callback"//https://"+req.headers.host+"/payment/callback",
   }
 
   const payment = await axios.post('https://api.payconiq.com/v3/payments', paymentInfo, { headers })
