@@ -28,8 +28,9 @@ router.get('/', async function(req, res) {
 
 router.post('/callback', async function(req, res) {
   res.sendStatus(200);
+
   const signature = req.headers['signature'].split('.')
-  signature[1] = btoa(JSON.stringify(req.body))
+  signature[1] = jose.base64url.encode(JSON.stringify(req.body))
   const jwt = signature.join(".")
 
   const options = {
