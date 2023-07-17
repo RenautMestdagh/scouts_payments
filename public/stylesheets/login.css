@@ -80,4 +80,5 @@ input[type=submit]:hover, button:hover, #teamDisplay input[type=button]:hover {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     font-size: xxx-large;
+    background-color: #eaeaea;
 }
