@@ -14,7 +14,7 @@ const headers = {
 router.get('/', async function(req, res) {
 
   let paymentInfo = {
-    "amount": 1,//req.query.amount * 100,
+    "amount": req.query.amount * 100,
     "currency": "EUR",
     "description": "Drankkaart",
     "callbackUrl": "http://152.70.57.40/payment/callback"//https://"+req.headers.host+"/payment/callback",
@@ -50,7 +50,7 @@ router.post('/callback', async function(req, res) {
         }
         return socketapi.io.emit('verificationFailed', req.body.paymentId)
       })
-  
+
 
   if (payload && protectedHeader) {
     if(req.body.status==="SUCCEEDED"){
