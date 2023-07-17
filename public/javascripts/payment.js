@@ -92,11 +92,16 @@ function showConfirm(symbol) {
 
     // Create the 'box-icon' element
     const boxIconElement = document.createElement('box-icon');
-    boxIconElement.name = symbol;
+    boxIconElement.setAttribute("name", symbol)
+    boxIconElement.setAttribute("color", "white")
 
     // Append the 'box-icon' to the 'confirm' div
     confirmDiv.appendChild(boxIconElement);
 
+    confirmDiv.addEventListener('click', function() {
+        window.location = "/"
+    });
+
     // Append the 'confirm' div
-    window.appendChild(confirmDiv);
+    document.body.appendChild(confirmDiv);
 }
