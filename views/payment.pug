@@ -5,9 +5,9 @@ block content
     link(rel='stylesheet', href='/stylesheets/payment.css')
 
     paymentId.hidden-div= paymentId
+    qrCode.hidden-div= qrCode
     .container
         div#image
-            img(src=qrCode, alt="QR Code" id="qrcode" width="500px")
         button#cancel(type="button") Annuleer betaling
 
 

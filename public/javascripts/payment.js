@@ -1,5 +1,6 @@
 const socket = io('//' + document.location.hostname + ':' + document.location.port);
 const paymentId = document.getElementsByTagName('paymentId')[0].innerText
+const qrCodeUrl = document.getElementsByTagName('qrCode')[0].innerText
 const cancel = document.getElementById("cancel")
 let cancelled = false
 
@@ -13,12 +14,19 @@ const loadingOverlay = document.createElement("div");
 loadingOverlay.classList.add("loader");
 loadingParent.appendChild(loadingOverlay);
 
-image.appendChild(loadingParent);
+const qrCode = new Image();
+qrCode.setAttribute("alt", "QR Code")
+qrCode.setAttribute("id", "qrcode")
+qrCode.setAttribute("width", "500px")
 
-const qrCode = document.getElementById("qrcode");
+image.appendChild(qrCode);
+image.appendChild(loadingParent);
 qrCode.addEventListener('load', function() {
     image.removeChild(loadingParent);
 });
+
+qrCode.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA"  // blank to remove border
+qrCode.src = qrCodeUrl
 
 socket.on(('scanned'), function (data) {
     if (data !== paymentId && !cancelled) return;
