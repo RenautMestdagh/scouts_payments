@@ -26,15 +26,15 @@ app.use(
     })
 )
 
-const redirectLogin = (req, res, next) => {
-  if (!( req.session.userId || req.headers['user-agent']==="Payconiq Payments/v3"))
-    return res.redirect('/login')
-  next()
-}
+//const redirectLogin = (req, res, next) => {
+//  if (!( req.session.userId || req.headers['user-agent']==="Payconiq Payments/v3"))
+//    return res.redirect('/login')
+//  next()
+//}
 
-app.use('/login', require('./routes/login'));
-app.use('/', redirectLogin, require('./routes/index'));
-app.use('/payment', redirectLogin, require('./routes/payment'));
+//app.use('/login', require('./routes/login'));
+app.use('/', /*redirectLogin,*/ require('./routes/index'));
+app.use('/payment', /*redirectLogin,*/ require('./routes/payment'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
