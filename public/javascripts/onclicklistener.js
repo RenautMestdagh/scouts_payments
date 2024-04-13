@@ -1,7 +1,7 @@
 const buttonsArray = [...document.getElementsByTagName("button")];
 buttonsArray.forEach((item) => {
     item.onclick = function () {
-        let bedrag = 20;
+        let bedrag = 10;
 
         if(item.id==="custom"){
             do{
