@@ -91,8 +91,6 @@ socket.on(('scanned'), function (data) {
     qrImage.style.opacity = 0.5;
     qrImage.style.filter = 'blur(10px)';
     loader.classList.remove("invisible")
-    showConfirm("check-circle")
-
 });
 socket.on(('betaald'), function (data) {
     if (data !== paymentId) return;
