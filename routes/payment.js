@@ -23,7 +23,13 @@ router.get('/', async function(req, res) {
   const payment = await axios.post('https://api.payconiq.com/v3/payments', paymentInfo, { headers })
   toScan.add(payment.data.paymentId);
 
-  res.render('payment', { title: 'Payment', paymentId: payment.data.paymentId, qrCode: payment.data._links.qrcode.href.concat("&f=SVG") });
+  let answer = {
+    paymentId: payment.data.paymentId,
+    qrCode: payment.data._links.qrcode.href.concat("&f=SVG"),
+  }
+  res.send(answer);
+
+  //res.render('payment', { title: 'Payment', paymentId: payment.data.paymentId, qrCode: payment.data._links.qrcode.href.concat("&f=SVG") });
 });
 
 router.post('/callback', async function(req, res) {
