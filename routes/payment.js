@@ -21,7 +21,7 @@ router.get('/', async function(req, res) {
   }
 
   const payment = await axios.post('https://api.payconiq.com/v3/payments', paymentInfo, { headers })
-  toScan.add(payment.data.paymentId, Date.now());
+  toScan.set(payment.data.paymentId, Date.now());
 
   let answer = {
     paymentId: payment.data.paymentId,
@@ -84,7 +84,7 @@ async function pollScanned() {
 
   const paymentIdsToRemove = [];
 
-  for (const paymentId of toScan.values()) {
+  for (const paymentId of toScan.keys()) {
     try {
       const response = await axios.get(`https://api.payconiq.com/v3/payments/${paymentId}`, {headers});
       const paymentStatus = response.data.status;
