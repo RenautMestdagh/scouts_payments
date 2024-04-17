@@ -65,14 +65,11 @@ cancelButton.onclick = async function () {
         xhr.open('POST', '/payment/cancel');
         xhr.setRequestHeader("Content-Type", "application/JSON");
         xhr.onload = function(){
-            if(xhr.response==="k"){
-                // show cancel and redirect to /
-                //console.log("Succesfully canceled")
-                startNewPayment();
-            }
-
-            else
+            if(xhr.response!=="k")
                 alert("Cancel failed. (already paid / expired)")
+
+            //console.log("Succesfully canceled")
+            startNewPayment();
         }
         await xhr.send(JSON.stringify(formData));
     }
