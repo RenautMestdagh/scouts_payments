@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const session = require('cookie-session');
+// const session = require('cookie-session');
 const favicon = require("serve-favicon");
 require('dotenv').config();
 
@@ -18,13 +18,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico'))); //tab small picture (favicon)
 
-app.use(
-    session({
-      resave: false,
-      saveUninitialized: false,
-      secret: 'Smhi*5zRr&Drv#7L',
-    })
-)
+// app.use(
+//     session({
+//       resave: false,
+//       saveUninitialized: false,
+//       secret: 'Smhi*5zRr&Drv#7L',
+//     })
+// )
 
 // const redirectLogin = (req, res, next) => {
 //   if (!( req.session.userId || req.headers['user-agent']==="Payconiq Payments/v3"))
@@ -34,7 +34,6 @@ app.use(
 //
 // app.use('/login', require('./routes/login'));
 app.use('/', /*redirectLogin,*/ require('./routes/index'));
-app.use('/payment', /*redirectLogin,*/ require('./routes/payment'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

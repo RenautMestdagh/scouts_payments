@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const axios = require("axios");
-const toScan = new Set();
+const toScan = new Map(); // key= paymentID, value= timestamp
 let socketapi = require("../utils/socketapi");
 const jose = require('jose')
 
@@ -21,15 +21,13 @@ router.get('/', async function(req, res) {
   }
 
   const payment = await axios.post('https://api.payconiq.com/v3/payments', paymentInfo, { headers })
-  toScan.add(payment.data.paymentId);
+  toScan.add(payment.data.paymentId, Date.now());
 
   let answer = {
     paymentId: payment.data.paymentId,
     qrCode: payment.data._links.qrcode.href.concat("&f=SVG"),
   }
   res.send(answer);
-
-  //res.render('payment', { title: 'Payment', paymentId: payment.data.paymentId, qrCode: payment.data._links.qrcode.href.concat("&f=SVG") });
 });
 
 router.post('/callback', async function(req, res) {
@@ -86,13 +84,15 @@ async function pollScanned() {
 
   const paymentIdsToRemove = [];
 
-  for (const paymentId of toScan) {
+  for (const paymentId of toScan.values()) {
     try {
       const response = await axios.get(`https://api.payconiq.com/v3/payments/${paymentId}`, {headers});
       const paymentStatus = response.data.status;
 
       if (paymentStatus !== 'PENDING') {
         socketapi.io.emit('scanned', paymentId);
+        paymentIdsToRemove.push(paymentId);
+      } else if (isExpired(paymentId)){
         paymentIdsToRemove.push(paymentId);
       }
     } catch (error) {
@@ -104,6 +104,11 @@ async function pollScanned() {
   for (const paymentId of paymentIdsToRemove) {
     toScan.delete(paymentId);
   }
+}
+
+function isExpired(paymentId){
+  const timeCreated = toScan.get(paymentId)
+  return timeCreated + 1200000 < Date.now();  // if paymentId was created 20 minutes ago or later, return true
 }
 
 

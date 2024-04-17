@@ -87,22 +87,21 @@ function hide(element){
 socket.on(('scanned'), function (data) {
     if (data !== paymentId) return;
     // show loading sign
-
     qrImage.style.opacity = 0.5;
     qrImage.style.filter = 'blur(10px)';
     loader.classList.remove("invisible")
 });
 socket.on(('betaald'), function (data) {
     if (data !== paymentId) return;
-    console.log("betaald")
     showConfirm("check-circle")
+    //console.log("betaald")
     // show confirmation and reset /
 });
 
 socket.on(('failed'), function (data) {
     if (data !== paymentId) return;
-    console.log("failed")
     showConfirm("x-circle")
+    //console.log("failed")
     // show fail and reset /
 });
 
