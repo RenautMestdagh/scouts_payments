@@ -134,6 +134,17 @@ function showConfirm(symbol) {
     // Append the 'box-icon' to the 'confirm' div
     confirmDiv.appendChild(boxIconElement);
 
+    // Add amount to verification
+
+    const amountConfirm = document.createElement('a');
+    amountConfirm.id = 'amountVerification';
+    amountConfirm.textContent = amount.textContent
+    amountConfirm.style.position = "absolute";
+    amountConfirm.style.left = amount.getBoundingClientRect().x+'px';
+    amountConfirm.style.top = amount.getBoundingClientRect().y+'px';
+
+    confirmDiv.appendChild(amountConfirm);
+
     confirmDiv.addEventListener('click', function() {
         startNewPayment();
     });

@@ -57,7 +57,12 @@ body {
 }
 
 
-#amount {
+#amountVerification {
+    font-size: 120px;
+    font-weight: 800;
+    color: white;
+}
+#amount{
     font-size: 120px;
     font-weight: 800;
     margin-top: -275px;
