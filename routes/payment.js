@@ -32,7 +32,7 @@ router.get('/', async function(req, res) {
 
 router.post('/callback', async function(req, res) {
   res.sendStatus(200);
-  console.log(req.body.status)
+  //console.log(req.body.status)
 
   const signature = req.headers['signature'].split('.')
   signature[1] = jose.base64url.encode(JSON.stringify(req.body))

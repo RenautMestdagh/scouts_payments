@@ -11,6 +11,10 @@ const loader = document.getElementsByClassName("loader")[0];
 let paymentId;
 let confirmDiv;
 
+qrImage.onload = function(){
+    hide(loader)
+}
+
 amountButtonsArray.forEach((item) => {
     item.onclick = async function () {
         let bedrag = -1;
@@ -45,10 +49,9 @@ amountButtonsArray.forEach((item) => {
         xhr.onload = function(){
 
             const response = JSON.parse(xhr.response);
-            // console.log(response)
+
             qrImage.src = response.qrCode;
             paymentId = response.paymentId;
-            hide(loader)
         }
         xhr.send();
 
