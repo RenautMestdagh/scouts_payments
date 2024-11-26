@@ -7,19 +7,19 @@
     "devstart": "NODE_ENV=development nodemon ./bin/www"
   },
   "dependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.7.4",
     "cookie-session": "^2.0.0",
     "dotenv": "^16.1.4",
-    "express": "^4.18.2",
+    "express": "^4.21.1",
     "http-errors": "^2.0.0",
-    "jose": "^4.14.4",
+    "jose": "^4.15.5",
     "morgan": "^1.10.0",
-    "pug": "^3.0.2",
+    "pug": "^3.0.3",
     "serve-favicon": "^2.5.0",
     "socket.io": "^4.6.2"
   },
   "devDependencies": {
     "debug": "4.3.4",
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.1.7"
   }
 }
