@@ -61,8 +61,11 @@ router.post('/callback', async function(req, res) {
       return socketapi.io.emit('betaald', req.body.paymentId);
     } else if (req.body.status==="CANCELLED"){
       return socketapi.io.emit('failed', req.body.paymentId);
-    } else
-      return socketapi.io.emit('heh', req.body.paymentId);
+    } else{
+console.log(req.body.status)
+     return socketapi.io.emit('heh', req.body.paymentId
+}
+ );
   }
 })
 
