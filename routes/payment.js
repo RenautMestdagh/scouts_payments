@@ -64,8 +64,7 @@ router.post('/callback', async function(req, res) {
     } else{
       console.log(req.body);
       return socketapi.io.emit('heh', req.body.paymentId);
-}
- );
+    }
   }
 })
 
