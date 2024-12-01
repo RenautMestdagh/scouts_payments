@@ -62,8 +62,8 @@ router.post('/callback', async function(req, res) {
     } else if (req.body.status==="CANCELLED"){
       return socketapi.io.emit('failed', req.body.paymentId);
     } else{
-console.log(req.body.status)
-     return socketapi.io.emit('heh', req.body.paymentId
+      console.log(req.body);
+      return socketapi.io.emit('heh', req.body.paymentId);
 }
  );
   }
