@@ -28,8 +28,11 @@ const pollScanned = async () => {
       const { data } = await axios.get(`${PAYCONIQ_BASE_URL}/${paymentId}`, { headers });
       if (data.status !== 'PENDING') {
         socketapi.io.emit('scanned', paymentId);
-        paymentIdsToRemove.push(paymentId);
+        //paymentIdsToRemove.push(paymentId);
       } else if (isExpired(paymentId)) {
+        paymentIdsToRemove.push(paymentId);
+      } else {
+        socketapi.io.emit('auth_fail', paymentId);
         paymentIdsToRemove.push(paymentId);
       }
     } catch (error) {

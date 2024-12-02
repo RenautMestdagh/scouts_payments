@@ -96,7 +96,7 @@ function startNewPayment() {
     setVisibility(paymentDiv, true);
     setVisibility(chooseAmountDiv, false);
     resetQRImage();
-    document.querySelector("#confirm").remove();
+    document.querySelector("#confirm")?.remove();
     paymentId = null;
 }
 
