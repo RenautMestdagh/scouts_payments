@@ -44,6 +44,7 @@ amountButtons.forEach((button) => {
 
 cancelButton.onclick = async () => {
     if (confirm("Ben je zeker dat je de betaling wilt annuleren?")) {
+        paymentId = null;
         const formData = { paymentId };
 
         const xhr = new XMLHttpRequest();
