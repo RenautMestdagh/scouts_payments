@@ -35,7 +35,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico'))); //tab
 // app.use('/login', require('./routes/login'));
 
 app.use('/', /*redirectLogin,*/ require('./routes/index'));
-app.use('/payment', /*redirectLogin,*/ require('./routes/payment'));
+app.use('/payment', require('./routes/payment'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

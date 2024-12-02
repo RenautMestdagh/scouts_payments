@@ -1,25 +1,28 @@
 extends layout
 
 block content
-  script(type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js')
-  script(type="text/javascript" src='https://unpkg.com/boxicons@2.1.4/dist/boxicons.js')
-  link(rel='stylesheet', href='/stylesheets/index.css')
+  script(async type="text/javascript" src='https://unpkg.com/boxicons@2.1.4/dist/boxicons.js')
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  script(defer type="text/javascript" src='/socket.io/socket.io.js')
+  script(defer type="text/javascript" src="/javascripts/script.js")
 
-  div.button-container
-    img.logo(src="/images/logo_Scouts_Waregem_filled.png")
-    .normal-buttons
-      button#10(type='button') €10
-      button#15(type='button') €15
-      button#20(type='button') €20
-    .normal-buttons
-      button#40(type='button') €40
-      button#50(type='button') €50
-      button#60(type='button') €60
-    button.custom-button(type='button') Ander bedrag
+  .content
+    div.logo
+      img(src="/images/logo_Scouts_Waregem_filled.png")
 
-    a#amount.invisible
-    .loader.invisible
-    img#qrImage.invisible(src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA")
-    button#cancel(type="button").invisible Annuleer betaling
+    div#chooseAmountDiv
+      div.normal-buttons
+        button(type='button' amount='10') €10
+        button(type='button' amount='15') €15
+        button(type='button' amount='20') €20
+        button(type='button' amount='40') €40
+        button(type='button' amount='50') €50
+        button(type='button' amount='60') €60
+      button.custom-button(type='button') Ander bedrag
 
-  script(type="text/javascript" src="/javascripts/onclicklistener.js")
+    div#paymentDiv.d-none
+      a#amount
+      div
+        .loader
+        img#qrImage(src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA")
+      button#cancel(type="button") Annuleer betaling
