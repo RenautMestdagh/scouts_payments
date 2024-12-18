@@ -33,7 +33,7 @@ body {
 }
 
 .logo img {
-    width: 200px;
+    height: 225px;
 }
 
 #chooseAmountDiv, #paymentDiv {
@@ -66,6 +66,7 @@ body {
     color: white;
     text-align: center;
     line-height: 70px;
+    border: none;
 }
 
 .normal-buttons button {
