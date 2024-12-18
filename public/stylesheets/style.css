@@ -1,6 +1,11 @@
 :root {
-    --accent-color: #810000;
-    --text-color: #b30202;
+    /*-- scouts --*/
+    /*--accent-color: #810000;*/
+    /*--text-color: #b30202;*/
+
+    /*-- klauwaert --*/
+    --accent-color: #689DA5;
+    --text-color: #3a7e8f;
 }
 body{
     box-sizing: border-box;
