@@ -104,6 +104,9 @@ a, #amount {
     margin-bottom: 75px;
     color: var(--text-color);
 }
+#paymentDiv > div{
+    position: relative;
+}
 
 #paymentDiv div, #qrImage {
     width: 100%;
