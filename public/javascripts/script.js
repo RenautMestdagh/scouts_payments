@@ -86,7 +86,7 @@ function showConfirm(symbol, cancelReason) {
     confirmDiv.innerHTML += `<box-icon name="${symbol}" color="white"></box-icon>`
 
     if(symbol === 'x-circle')
-        confirmDiv.innerHTML += `<a style="position: absolute; color: white; font-size: 65px; text-align: center; width: calc(100vw - 70px); padding: 0 35px; top: ${amount.getBoundingClientRect().y*3.25}px;">${cancelReason}</a></div>`
+        confirmDiv.innerHTML += `<a style="position: absolute; color: white; font-size: 65px; text-align: center; width: calc(100vw - 70px); padding: 0 35px; bottom: ${amount.getBoundingClientRect().y*0.5}px;">${cancelReason}</a></div>`
 
     confirmDiv.addEventListener('click', startNewPayment);
     document.body.appendChild(confirmDiv);
