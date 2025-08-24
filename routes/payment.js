@@ -6,6 +6,7 @@ const socketapi = require("../utils/socketapi");
 
 const toScan = new Map(); // key = paymentID, value = timestamp
 const PAYCONIQ_BASE_URL = 'https://api.payconiq.com/v3/payments';
+// const PAYCONIQ_BASE_URL = 'https://merchant.api.bancontact.net/v3/payments';
 const PAYCONIQ_CERT_URL = 'https://payconiq.com/certificates';
 
 const headers = {
