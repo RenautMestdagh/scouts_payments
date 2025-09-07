@@ -14,7 +14,7 @@ A web-based payment terminal integration with Payconiq for Scouts Waregem. This 
 
 | Create Payment | Scan Payment | Payment Succeeded | Payment Failed |
 |----------------|--------------|-------------------|----------------|
-| <img src=".github/images/create-payment.png" style="max-width: 200px; height: auto;" alt="Create Payment"> | <img src=".github/images/scan-payment.png" style="max-width: 200px; height: auto;" alt="Scan Payment"> | <img src=".github/images/payment-succeeded.png" style="max-width: 200px; height: auto;" alt="Payment Succeeded"> | <img src=".github/images/payment-failed.png" style="max-width: 200px; height: auto;" alt="Payment Failed"> |
+| <img src=".github/images/create-payment.png" width="200" alt="Create Payment"> | <img src=".github/images/scan-payment.png" width="200" alt="Scan Payment"> | <img src=".github/images/payment-succeeded.png" width="200" alt="Payment Succeeded"> | <img src=".github/images/payment-failed.png" width="200" alt="Payment Failed"> |
 
 ## Prerequisites
 
