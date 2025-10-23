@@ -52,7 +52,7 @@ cancelButton.onclick = async () => {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = () => {
             if (xhr.response !== "k") {
-                alert("Cancel failed. (already paid / expired)");
+                alert("Cancel failed. (already canceled, paid or expired)");
             }
 
             startNewPayment();

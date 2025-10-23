@@ -40,6 +40,8 @@ const pollScanned = async () => {
     paymentIdsToRemove.forEach((id) => toScan.delete(id));
 };
 
+setInterval(pollScanned, 1000);
+
 let JWKS;
 const initializeJWKS = async () => {
     JWKS = jose.createRemoteJWKSet(new URL(PAYCONIQ_CERT_URL), { cacheMaxAge: 12 * 60 * 60 * 1000 });
@@ -87,7 +89,7 @@ router.get('/', async (req, res) => {
             qrCode: `${data._links.qrcode.href}&f=SVG`,
         });
     } catch (error) {
-        console.error("Error creating payment:", error.message || error);
+        console.error("Error creating payment:", error.response?.data?.message || error);
         res.status(500).json({ error: "Failed to create payment." });
     }
 });
@@ -222,8 +224,5 @@ router.post('/cancel', async (req, res) => {
         res.send("heh");
     }
 });
-
-// Periodic polling for payment statuses
-setInterval(pollScanned, 1000);
 
 module.exports = router;
