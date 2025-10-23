@@ -65,7 +65,7 @@ Creates a new payment request.
 ```json
 {
   "paymentId": "payment-uuid",
-  "qrCode": "https://payconiq.com/qr/svg-url"
+  "qrCode": "https://qrcodegenerator.api.bancontact.net/qrcode?c=...&f=svg"
 }
 ```
 
