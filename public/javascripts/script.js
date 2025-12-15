@@ -42,6 +42,8 @@ amountButtons.forEach((button) => {
     };
 });
 
+document.querySelector('#flameIcon').onclick = playVlam;
+
 cancelButton.onclick = async () => {
     if (confirm("Ben je zeker dat je de betaling wilt annuleren?")) {
         const formData = { paymentId };
@@ -87,9 +89,16 @@ function showConfirm(symbol, cancelReason) {
 
     if(symbol === 'x-circle')
         confirmDiv.innerHTML += `<a style="position: absolute; color: white; font-size: 65px; text-align: center; width: calc(100vw - 70px); padding: 0 35px; bottom: ${amount.getBoundingClientRect().y*0.5}px;">${cancelReason}</a></div>`
+    else
+        playVlam();
 
     confirmDiv.addEventListener('click', startNewPayment);
     document.body.appendChild(confirmDiv);
+}
+
+function playVlam() {
+    const audio = new Audio('/sounds/VLAM.mp3');
+    audio.play();
 }
 
 function startNewPayment() {

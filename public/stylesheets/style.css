@@ -1,11 +1,11 @@
 :root {
     /*-- scouts --*/
-    --accent-color: #810000;
-    --text-color: #b30202;
+    /*--accent-color: #810000;*/
+    /*--text-color: #b30202;*/
 
     /*-- klauwaert --*/
-    /*--accent-color: #689DA5;*/
-    /*--text-color: #3a7e8f;*/
+    --accent-color: #689DA5;
+    --text-color: #3a7e8f;
 }
 body{
     box-sizing: border-box;
@@ -37,6 +37,12 @@ body {
     gap: 50px;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
 .logo img {
     height: 225px;
 }
