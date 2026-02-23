@@ -12,7 +12,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(express.static(path.join(__dirname, 'public'), {
-    maxAge: '7d' // Cache for 7 days
+    maxAge: '1d' // Cache for 1 day
 }));
 
 app.use(logger('dev'));
