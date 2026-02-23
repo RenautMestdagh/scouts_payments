@@ -1,14 +1,17 @@
 :root {
     /*-- scouts --*/
-    /*--accent-color: #810000;*/
-    /*--text-color: #b30202;*/
+    --accent-color: #810000;
+    --text-color: #b30202;
 
     /*-- klauwaert --*/
-    --accent-color: #689DA5;
-    --text-color: #3a7e8f;
+    /*--accent-color: #689DA5;*/
+    /*--text-color: #3a7e8f;*/
 }
 body{
     box-sizing: border-box;
+    background-image: url("../images/bacardi_background.png");
+    background-size: cover;
+    background-position: center;
 }
 body, .content, .logo img, .normal-buttons, .normal-buttons button, .custom-button, #paymentDiv, .loader, box-icon, #cancel, #confirm {
     margin: 0;
@@ -120,33 +123,70 @@ a, #amount {
 
 #paymentDiv p {
     max-height: fit-content;
+    width: unset;
+    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 45px;
+    padding: 10px;
 }
 
-#paymentDiv #qrImage {
+.qr-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-width: 75%;
+    margin: 0 auto;
+}
+
+.qr-container img#qrImage {
+    max-width: 100%;
+    height: auto;
+}
+
+.overlay-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+#overlayLogo {
+    width: 30%;
+    aspect-ratio: 1;
+    object-fit: contain;
 }
 
 #paymentDiv #errorIcon {
     max-width: 50%;
 }
 
-#paymentDiv button {
-    flex: unset;
+.loader-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
 }
 
 .loader {
-    width: 120px !important;
-    height: 120px;
+    width: 35% !important;
+    aspect-ratio: 1;
     border: 15px solid #c4c0c0;
     border-top-color: #505050;
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1.5s linear infinite;
-
     position: absolute;
-    top: calc(50% - 60px);
-    left: calc(50% - 60px);
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
 }
 
 @keyframes rotation {
@@ -168,6 +208,10 @@ a, #amount {
     100% {
         clip-path: circle(125%);
     }
+}
+
+#paymentDiv button {
+    flex: unset;
 }
 
 [transition-style="in:circle:hesitate"] {

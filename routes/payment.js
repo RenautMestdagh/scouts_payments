@@ -82,6 +82,7 @@ router.get('/', async (req, res) => {
 
     try {
         const { data } = await axios.post(PAYCONIQ_BASE_URL, paymentInfo, { headers });
+
         toScan.set(data.paymentId, Date.now());
 
         res.json({

@@ -5,14 +5,16 @@ const amountButtons = [...document.querySelectorAll("#chooseAmountDiv button")];
 
 const paymentDiv = document.querySelector("#paymentDiv");
 const amount = document.querySelector("#paymentDiv p");
-const qrImage = document.querySelector("#paymentDiv img");
+const qrImage = document.querySelector("#paymentDiv .qrDiv img");
+const qrDiv = document.querySelector("#paymentDiv .qrDiv");
+const loaderContainer = document.querySelector("#paymentDiv .loader-container");
 const errorIcon = document.querySelector("#errorIcon");
 const cancelButton = document.querySelector("#paymentDiv button");
 const loader = document.querySelector(".loader");
 
 let paymentId;
 
-qrImage.onload = () => setVisibility(loader, true);
+qrImage.onload = () => setQRVisualState(false);
 
 amountButtons.forEach((button) => {
     button.onclick = async () => {
@@ -39,8 +41,8 @@ amountButtons.forEach((button) => {
                 qrImage.src = response.qrCode;
                 paymentId = response.paymentId;
             } else {
-                setVisibility(qrImage, true);
-                setVisibility(loader, true);
+                setVisibility(qrDiv, true);
+                setVisibility(loaderContainer, true);
                 setVisibility(errorIcon, false);
                 paymentId = null;
             }
@@ -49,7 +51,7 @@ amountButtons.forEach((button) => {
     };
 });
 
-document.querySelector('#flameIcon').onclick = playVlam;
+// document.querySelector('#flameIcon').onclick = playVlam;
 
 cancelButton.onclick = async () => {
     if (confirm("Ben je zeker dat je de betaling wilt annuleren?")) {
@@ -74,7 +76,7 @@ const handlePaymentEvent = (event, handler) => socket.on(event, (data) => data =
 
 const showPaymentStatus = (status, message = '') => showConfirm(status, message);
 
-handlePaymentEvent('scanned', () => updateQRStatus(true));
+handlePaymentEvent('scanned', () => setQRVisualState(true));
 handlePaymentEvent('betaald', () => showPaymentStatus("check-circle"));
 handlePaymentEvent('auth_fail', () => showPaymentStatus("x-circle", 'Autorisatie van betaling mislukt'));
 handlePaymentEvent('canceled', () => showPaymentStatus("x-circle", 'Betaling geannuleerd door klant'));
@@ -87,7 +89,7 @@ handlePaymentEvent('heh', () => alert('Unexpected status. Stuur Renaut dat ik he
 function showConfirm(symbol, cancelReason) {
     confirmDiv = document.createElement('div');
     confirmDiv.id = 'confirm';
-    confirmDiv.setAttribute('transition-style', 'in:circle:hesitate');
+    // confirmDiv.setAttribute('transition-style', 'in:circle:hesitate');
     confirmDiv.style.backgroundColor = symbol === 'check-circle' ? '#60b460' : '#ff7575';
 
     confirmDiv.innerHTML += `<a style="position: absolute; color: white; left: ${amount.getBoundingClientRect().x}px; top: ${amount.getBoundingClientRect().y}px;">${amount.textContent}</a>`;
@@ -96,8 +98,11 @@ function showConfirm(symbol, cancelReason) {
 
     if(symbol === 'x-circle')
         confirmDiv.innerHTML += `<a style="position: absolute; color: white; font-size: 65px; text-align: center; width: calc(100vw - 70px); padding: 0 35px; bottom: ${amount.getBoundingClientRect().y*0.5}px;">${cancelReason}</a></div>`
-    else
-        playVlam();
+    else {
+        // playVlam();
+        confirmDiv.innerHTML += `<img style="position: absolute; width: 75%; height: auto; left: 50%; transform: translateX(-50%); bottom: ${amount.getBoundingClientRect().y*0.5}px;" src="/images/bacardi_logo_tekst.png"></div>`
+    }
+
 
     confirmDiv.addEventListener('click', startNewPayment);
     document.body.appendChild(confirmDiv);
@@ -125,19 +130,19 @@ function updatePaymentUI(bedrag) {
     amount.textContent = `€${bedrag}`;
     setVisibility(chooseAmountDiv, true);
     setVisibility(paymentDiv, false);
-    setVisibility(loader, false);
+    setQRVisualState(true);
 }
 
-function updateQRStatus(blurred) {
-    qrImage.style.opacity = blurred ? 0.5 : 1;
-    qrImage.style.filter = blurred ? 'blur(10px)' : 'none';
-    setVisibility(loader, false);
+function setQRVisualState(blurred) {
+    qrDiv.style.opacity = blurred ? 0.5 : 1;
+    qrDiv.style.filter = blurred ? 'blur(10px)' : 'none';
+    setVisibility(loaderContainer, !blurred);
 }
 
 function resetQRImage() {
-    qrImage.style.opacity = 1;
-    qrImage.style.filter = 'none';
-    setVisibility(qrImage, false);
+    qrDiv.style.opacity = 1;
+    qrDiv.style.filter = 'none';
+    setVisibility(qrDiv, false);
     setVisibility(errorIcon, true);
-    qrImage.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA";
+    qrImage.src = "/images/qrcode.svg";
 }

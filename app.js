@@ -19,8 +19,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon_klauwaert.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon_klauwaert.ico')));
 
 app.use('/', require('./routes/index'));
 app.use('/payment', require('./routes/payment'));
