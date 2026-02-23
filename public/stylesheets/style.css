@@ -55,11 +55,11 @@ body {
 
 #chooseAmountDiv {
     gap: 50px;
-    padding-bottom: 250px;
+    padding-bottom: 10%;
 }
 
 #paymentDiv {
-    padding-bottom: 200px;
+    padding-bottom: 10%;
 }
 
 .normal-buttons {
@@ -110,12 +110,28 @@ a, #amount {
     margin-bottom: 75px;
     color: var(--text-color);
 }
-#paymentDiv > div{
-    position: relative;
+
+#paymentDiv,
+#paymentDiv * {
+    width: 100%;
+    text-align: center;
+    flex: 1;
 }
 
-#paymentDiv div, #qrImage {
-    width: 100%;
+#paymentDiv p {
+    max-height: fit-content;
+}
+
+#paymentDiv #qrImage {
+    max-width: 75%;
+}
+
+#paymentDiv #errorIcon {
+    max-width: 50%;
+}
+
+#paymentDiv button {
+    flex: unset;
 }
 
 .loader {

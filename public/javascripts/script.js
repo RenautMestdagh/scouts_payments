@@ -3,10 +3,10 @@ const socket = io(`//${document.location.hostname}:${document.location.port}`);
 const chooseAmountDiv = document.querySelector("#chooseAmountDiv");
 const amountButtons = [...document.querySelectorAll("#chooseAmountDiv button")];
 
-
 const paymentDiv = document.querySelector("#paymentDiv");
-const amount = document.querySelector("#paymentDiv a");
+const amount = document.querySelector("#paymentDiv p");
 const qrImage = document.querySelector("#paymentDiv img");
+const errorIcon = document.querySelector("#errorIcon");
 const cancelButton = document.querySelector("#paymentDiv button");
 const loader = document.querySelector(".loader");
 
@@ -34,9 +34,16 @@ amountButtons.forEach((button) => {
         xhr.open('GET', `/payment?amount=${bedrag}`);
         xhr.setRequestHeader('content-type', 'none');
         xhr.onload = () => {
-            const response = JSON.parse(xhr.response);
-            qrImage.src = response.qrCode;
-            paymentId = response.paymentId;
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.response);
+                qrImage.src = response.qrCode;
+                paymentId = response.paymentId;
+            } else {
+                setVisibility(qrImage, true);
+                setVisibility(loader, true);
+                setVisibility(errorIcon, false);
+                paymentId = null;
+            }
         };
         xhr.send();
     };
@@ -130,5 +137,7 @@ function updateQRStatus(blurred) {
 function resetQRImage() {
     qrImage.style.opacity = 1;
     qrImage.style.filter = 'none';
+    setVisibility(qrImage, false);
+    setVisibility(errorIcon, true);
     qrImage.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA";
 }

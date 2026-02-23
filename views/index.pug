@@ -12,26 +12,19 @@ block content
       img(src="/images/logo_Klauwaert.png")
       img#flameIcon(src="/images/DWW_LOGO.png")
 
-
     div#chooseAmountDiv
       div.normal-buttons
-        button(type='button' amount='2') €2
-        button(type='button' amount='5') €5
-        button(type='button' amount='10') €10
-        button(type='button' amount='15') €15
-        button(type='button' amount='20') €20
-        button(type='button' amount='25') €25
-        //button(type='button' amount='40') €40
-        //button(type='button' amount='50') €50
-        //button(type='button' amount='60') €60
-        //button(type='button' amount='75') €75
-        //button(type='button' amount='80') €80
-        //button(type='button' amount='100') €100
+        each amount in amounts
+          button(type='button' amount=amount) €#{amount}
       button.custom-button(type='button') Ander bedrag
 
     div#paymentDiv.d-none
-      a#amount
-      div
-        .loader
-        img#qrImage(src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA")
+      p#amount
+      .loader
+      img#qrImage(src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA")
+      svg#errorIcon.d-none(width="256" height="256" viewBox="0 0 256 256")
+        g(transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)")
+          path(d="M 28.5 65.5 c -1.024 0 -2.047 -0.391 -2.829 -1.172 c -1.562 -1.562 -1.562 -4.095 0 -5.656 l 33 -33 c 1.561 -1.562 4.096 -1.562 5.656 0 c 1.563 1.563 1.563 4.095 0 5.657 l -33 33 C 30.547 65.109 29.524 65.5 28.5 65.5 z" fill="rgb(236,0,0)" stroke-linecap="round")
+          path(d="M 61.5 65.5 c -1.023 0 -2.048 -0.391 -2.828 -1.172 l -33 -33 c -1.562 -1.563 -1.562 -4.095 0 -5.657 c 1.563 -1.562 4.095 -1.562 5.657 0 l 33 33 c 1.563 1.562 1.563 4.095 0 5.656 C 63.548 65.109 62.523 65.5 61.5 65.5 z" fill="rgb(236,0,0)" stroke-linecap="round")
+          path(d="M 45 90 C 20.187 90 0 69.813 0 45 C 0 20.187 20.187 0 45 0 c 24.813 0 45 20.187 45 45 C 90 69.813 69.813 90 45 90 z M 45 8 C 24.598 8 8 24.598 8 45 c 0 20.402 16.598 37 37 37 c 20.402 0 37 -16.598 37 -37 C 82 24.598 65.402 8 45 8 z" fill="rgb(236,0,0)" stroke-linecap="round")
       button#cancel(type="button") Annuleer betaling

@@ -38,7 +38,12 @@ npm install
 3. Create a `.env` file in the root directory:
 ```env
 PAYCONIQ_BEARER=your_payconiq_bearer_token_here
+AMOUNTS=5;10;15;20;30;50
 ```
+
+**Environment Variables:**
+- `PAYCONIQ_BEARER` (required): Your Payconiq API bearer token
+- `AMOUNTS` (optional): Semicolon-separated list of 6 payment amounts in euros. Defaults to `5;10;15;20;30;50` if not provided or invalid
 
 4. Start the application:
 ```bash
@@ -47,7 +52,7 @@ npm start
 
 ## Usage
 
-1. **Select Amount**: Choose from preset amounts (€1, €2, €5, €10) or enter a custom amount
+1. **Select Amount**: Choose from preset amounts (configurable via AMOUNTS environment variable) or enter a custom amount
 2. **Generate QR Code**: The system automatically creates a Payconiq QR code
 3. **Customer Payment**: Customer scans the QR code with their banking app
 4. **Real-time Status**: Payment status updates automatically via WebSocket connection
