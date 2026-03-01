@@ -5,12 +5,11 @@ const amountButtons = [...document.querySelectorAll("#chooseAmountDiv button")];
 
 const paymentDiv = document.querySelector("#paymentDiv");
 const amount = document.querySelector("#paymentDiv p");
-const qrImage = document.querySelector("#paymentDiv .qrDiv img");
 const qrDiv = document.querySelector("#paymentDiv .qrDiv");
+const qrImage = document.querySelector("#paymentDiv .qrDiv #qrImage");
 const loaderContainer = document.querySelector("#paymentDiv .loader-container");
 const errorIcon = document.querySelector("#errorIcon");
 const cancelButton = document.querySelector("#paymentDiv button");
-const loader = document.querySelector(".loader");
 
 let paymentId;
 
@@ -89,7 +88,7 @@ handlePaymentEvent('heh', () => alert('Unexpected status. Stuur Renaut dat ik he
 function showConfirm(symbol, cancelReason) {
     confirmDiv = document.createElement('div');
     confirmDiv.id = 'confirm';
-    // confirmDiv.setAttribute('transition-style', 'in:circle:hesitate');
+    confirmDiv.setAttribute('transition-style', 'in:circle:hesitate');
     confirmDiv.style.backgroundColor = symbol === 'check-circle' ? '#60b460' : '#ff7575';
 
     confirmDiv.innerHTML += `<a style="position: absolute; color: white; left: ${amount.getBoundingClientRect().x}px; top: ${amount.getBoundingClientRect().y}px;">${amount.textContent}</a>`;
@@ -100,7 +99,7 @@ function showConfirm(symbol, cancelReason) {
         confirmDiv.innerHTML += `<a style="position: absolute; color: white; font-size: 65px; text-align: center; width: calc(100vw - 70px); padding: 0 35px; bottom: ${amount.getBoundingClientRect().y*0.5}px;">${cancelReason}</a></div>`
     else {
         // playVlam();
-        confirmDiv.innerHTML += `<img style="position: absolute; width: 75%; height: auto; left: 50%; transform: translateX(-50%); bottom: ${amount.getBoundingClientRect().y*0.5}px;" src="/images/bacardi_logo_tekst.png"></div>`
+        // confirmDiv.innerHTML += `<img style="position: absolute; width: 75%; height: auto; left: 50%; transform: translateX(-50%); bottom: ${amount.getBoundingClientRect().y*0.5}px;" src="/images/bacardi_logo_tekst.png"></div>`
     }
 
 
@@ -108,10 +107,10 @@ function showConfirm(symbol, cancelReason) {
     document.body.appendChild(confirmDiv);
 }
 
-function playVlam() {
-    const audio = new Audio('/sounds/VLAM.mp3');
-    audio.play();
-}
+// function playVlam() {
+//     const audio = new Audio('/sounds/VLAM.mp3');
+//     audio.play();
+// }
 
 function startNewPayment() {
     setVisibility(paymentDiv, true);
